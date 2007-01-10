@@ -9,6 +9,7 @@ Release:	0.5
 License:	distributable
 Group:		Daemons
 Source0:	http://download.pureftpd.org/pub/sharedance/%{name}-%{version}.tar.bz2
+# Source0-md5:	73e60374cc04a825090530e90ce3e2ba
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 URL:		http://sharedance.pureftpd.org/project/sharedance/
