@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+# sharedanced	sharedanced server that centralize ephemeral key/data pairs on remote hosts
+#
+# chkconfig:	345 99 01
+#
+# description:	Sharedance is a high-performance server that centralize ephemeral key/data \
+#				pairs on remote hosts, without the overhead and the complexity of an SQL \
+#				database. \
+#				\
+#				It was mainly designed to share caches and sessions between a pool of web \
+#				servers. Access to a sharedance server is trivial through a simple PHP API and \
+#				it is compatible with the expectations of PHP 4 and PHP 5 session handlers.
+#
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config - may override defaults
+[ -f /etc/sysconfig/sharedanced ] && . /etc/sysconfig/sharedanced
+[ -z "$OPTIONS" ] && OPTIONS="--directory=/var/cache/sharedanced --daemonize"
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+		msg_network_down sharedanced
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/sharedanced ]; then
+		msg_starting sharedanced
+		daemon sharedanced $OPTIONS
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/sharedanced
+	else
+		msg_already_running sharedanced
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/sharedanced ]; then
+		# Stop daemons.
+		msg_stopping sharedanced
+		killproc sharedanced
+		rm -f /var/lock/subsys/sharedanced
+	else
+		msg_not_running sharedanced
+	fi
+	;;
+  restart)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  reload)
+	if [ -f /var/lock/subsys/sharedanced ]; then
+		msg_reloading sharedanced
+		killproc sharedanced -HUP
+		RETVAL=$?
+	else
+		msg_not_running sharedanced >&2
+		RETVAL=7
+	fi
+	;;
+  force-reload)
+	# if program allows reloading without stopping
+	$0 reload
+
+	# or if it doesn't
+	$0 restart
+
+	exit $?
+	;;
+  status)
+	status sharedanced
+	RETVAL=$?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
+
+# This must be last line !
+# vi:syntax=sh
