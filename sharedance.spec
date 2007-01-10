@@ -5,13 +5,14 @@ Summary:	Server that centralize ephemeral key/data pairs on remote hosts
 #Summary(pl):	-
 Name:		sharedance
 Version:	0.6
-Release:	0.5
+Release:	0.6
 License:	distributable
 Group:		Daemons
 Source0:	http://download.pureftpd.org/pub/sharedance/%{name}-%{version}.tar.bz2
 # Source0-md5:	73e60374cc04a825090530e90ce3e2ba
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
+Patch0:		%{name}-nolocal.patch
 URL:		http://sharedance.pureftpd.org/project/sharedance/
 BuildRequires:	rpmbuild(macros) >= 1.228
 Requires(post,preun):	/sbin/chkconfig
@@ -34,8 +35,10 @@ it is compatible with the expectations of PHP 4 and PHP 5 session handlers.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+%{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
