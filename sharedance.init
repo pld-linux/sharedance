@@ -33,9 +33,7 @@ else
 	exit 0
 fi
 
-# See how we were called.
-case "$1" in
-  start)
+start() {
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/sharedanced ]; then
 		msg_starting sharedanced
@@ -45,8 +43,9 @@ case "$1" in
 	else
 		msg_already_running sharedanced
 	fi
-	;;
-  stop)
+}
+
+stop() {
 	if [ -f /var/lock/subsys/sharedanced ]; then
 		# Stop daemons.
 		msg_stopping sharedanced
@@ -55,30 +54,29 @@ case "$1" in
 	else
 		msg_not_running sharedanced
 	fi
+}
+
+# See how we were called.
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
 	;;
   restart)
-	$0 stop
-	$0 start
-	exit $?
+	stop
+	start
 	;;
-  reload)
+  reload|force-reload)
 	if [ -f /var/lock/subsys/sharedanced ]; then
 		msg_reloading sharedanced
 		killproc sharedanced -HUP
 		RETVAL=$?
 	else
-		msg_not_running sharedanced >&2
+		msg_not_running sharedanced
 		RETVAL=7
 	fi
-	;;
-  force-reload)
-	# if program allows reloading without stopping
-	$0 reload
-
-	# or if it doesn't
-	$0 restart
-
-	exit $?
 	;;
   status)
 	status sharedanced
@@ -90,6 +88,3 @@ case "$1" in
 esac
 
 exit $RETVAL
-
-# This must be last line !
-# vi:syntax=sh
