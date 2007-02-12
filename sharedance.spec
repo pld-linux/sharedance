@@ -2,7 +2,7 @@
 # TODO: maybe run as no root user
 #
 Summary:	Server that centralize ephemeral key/data pairs on remote hosts
-Summary(pl):	Serwer centralizuj±cy efemeryczne pary kluczy/danych na zdalnych maszynach
+Summary(pl.UTF-8):   Serwer centralizujÄ…cy efemeryczne pary kluczy/danych na zdalnych maszynach
 Name:		sharedance
 Version:	0.6
 Release:	0.6
@@ -32,15 +32,15 @@ web servers. Access to a sharedance server is trivial through a simple
 PHP API and it is compatible with the expectations of PHP 4 and PHP 5
 session handlers.
 
-%description -l pl
-sharedance to wysoko wydajny serwer centralizuj±cy efemeryczne pary
-kluczy/danych na zdalnych maszynach bez narzutu i z³o¿ono¶ci bazy
+%description -l pl.UTF-8
+sharedance to wysoko wydajny serwer centralizujÄ…cy efemeryczne pary
+kluczy/danych na zdalnych maszynach bez narzutu i zÅ‚oÅ¼onoÅ›ci bazy
 danych SQL.
 
-Zosta³ zaprojektowany g³ównie do wspó³dzielenia pamiêci podrêcznej i
-sesji miêdzy pul± serwerów WWW. Dostêp do serwera sharedance jest
+ZostaÅ‚ zaprojektowany gÅ‚Ã³wnie do wspÃ³Å‚dzielenia pamiÄ™ci podrÄ™cznej i
+sesji miÄ™dzy pulÄ… serwerÃ³w WWW. DostÄ™p do serwera sharedance jest
 trywialny poprzez proste API PHP i jest kompatybilne z oczekiwaniami
-funkcji obs³ugi sesji w PHP 4 i PHP 5.
+funkcji obsÅ‚ugi sesji w PHP 4 i PHP 5.
 
 %prep
 %setup -q
