@@ -2,7 +2,7 @@
 # TODO: maybe run as no root user
 #
 Summary:	Server that centralize ephemeral key/data pairs on remote hosts
-Summary(pl.UTF-8):   Serwer centralizujący efemeryczne pary kluczy/danych na zdalnych maszynach
+Summary(pl.UTF-8):	Serwer centralizujący efemeryczne pary kluczy/danych na zdalnych maszynach
 Name:		sharedance
 Version:	0.6
 Release:	0.6
