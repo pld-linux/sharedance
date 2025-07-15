@@ -44,7 +44,7 @@ funkcji obsługi sesji w PHP 4 i PHP 5.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__aclocal}
